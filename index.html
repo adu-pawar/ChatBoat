@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Question Solver - Instant Help</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Marked JS for converting Gemini Markdown responses to HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- KaTeX for rendering Math equations cleanly -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+<body>
+    <div class="background">
+        <div class="blob shape-1"></div>
+        <div class="blob shape-2"></div>
+        <div class="blob shape-3"></div>
+    </div>
+    
+    <div class="container main-content">
+        <header class="app-header">
+            <h1 class="gradient-text">AI Question Solver</h1>
+            <p class="subtitle">Upload a photo or type your question and get help powered by AI. For math questions, step-by-step guidance is provided without the final answer. For other subjects, answers are given.</p>
+        </header>
+
+        <section class="upload-section glass-panel">
+            <div id="drop-zone" class="drop-zone">
+                <input type="file" id="file-input" accept="image/*" hidden>
+                <div class="upload-placeholder">
+                    <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <p class="upload-text">Drag and drop an image here</p>
+                    <span class="upload-subtext">or <span class="browse-link text-gradient">Browse Files</span></span>
+                </div>
+            </div>
+            
+            <div id="preview-container" class="preview-container hidden">
+                <img id="image-preview" class="image-preview" src="" alt="Math problem preview">
+                <button id="remove-btn" class="icon-button remove-btn" aria-label="Remove image">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div id="text-input-container" class="text-input-container">
+                <label for="question-input">Or type your question here:</label>
+                <textarea id="question-input" placeholder="Enter your question..."></textarea>
+            </div>
+
+            <button id="solve-btn" class="primary-button hidden" disabled>
+                <span class="btn-text">Get Help</span>
+                <span class="btn-icon">✨</span>
+            </button>
+        </section>
+
+        <section id="results-section" class="results-section hidden glass-panel">
+            <h2 class="section-title">Response</h2>
+            
+            <div id="loader" class="loader-container hidden">
+                <div class="pulsing-circle"></div>
+                <p class="loading-text">Analyzing your question...</p>
+            </div>
+            
+            <div id="solution-content" class="solution-content markdown-body"></div>
+            
+            <button id="reset-btn" class="secondary-button hidden">Ask Another Question</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
+import CONFIG from './config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
-    // ⚠️ Replace with your real API key or move this to Firebase Functions for production
-    const API_KEY = 'AIzaSyCwrKyohKfjfvz8NjPK3P5QIqDquhtfnqI';
+    const API_KEY = CONFIG.GEMINI_API_KEY;
     const MODEL = 'gemini-2.5-flash';
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 

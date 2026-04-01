@@ -30,6 +30,15 @@ function getErrorMessage(errorCode) {
     }
 }
 
+// Helper to detect current page reliably (works on GitHub Pages & localhost)
+function getCurrentPage() {
+    const path = window.location.pathname;
+    const page = path.split('/').pop();
+    // If empty string or no extension, it's the root (index.html)
+    if (!page || !page.includes('.')) return 'index.html';
+    return page;
+}
+
 // Handle Login
 const loginForm = document.getElementById('login-form');
 if (loginForm) {
@@ -86,38 +95,35 @@ if (signupForm) {
 
 // Global Auth State Observer & Redirects
 onAuthStateChanged(auth, (user) => {
-    const currentPage = window.location.pathname.split('/').pop();
+    const currentPage = getCurrentPage();
     
     if (user) {
-        // User is signed in
-        if (currentPage === 'login.html' || currentPage === 'signup.html' || currentPage === '') {
-            // If on auth pages, redirect to dashboard/index
-            // (Only redirect if not already on index.html)
-            if (currentPage !== 'index.html') {
-                window.location.href = 'index.html';
-            }
+        // User is signed in — redirect away from auth pages
+        if (currentPage === 'login.html' || currentPage === 'signup.html') {
+            window.location.href = 'index.html';
         }
         
-        // Update UI if on index.html
-        if (currentPage === 'index.html' || currentPage === '') {
-            const userEmailSpan = document.getElementById('user-email');
-            if (userEmailSpan) userEmailSpan.textContent = user.email;
-        }
+        // Update UI on index page
+        const userEmailSpan = document.getElementById('user-email');
+        if (userEmailSpan) userEmailSpan.textContent = user.email;
 
     } else {
-        // User is signed out
-        if (currentPage === 'index.html' || currentPage === '' || currentPage === '/') {
+        // User is signed out — protect the main page
+        if (currentPage === 'index.html') {
             window.location.href = 'login.html';
         }
     }
 });
 
-// Logout Functionality
-window.logout = async function() {
-    try {
-        await signOut(auth);
-        window.location.href = 'login.html';
-    } catch (error) {
-        console.error("Logout Error:", error);
-    }
-};
+// Logout Functionality — attach to the button directly
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            window.location.href = 'login.html';
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
+    });
+}

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ⚠️ Replace with your real API key or move this to Firebase Functions for production
-    const API_KEY = 'AIzaSyDmvilXFY36O1-3_AE0SmTIr90n7YX5mbw';
-    const MODEL = 'gemini-2.5-flash-lite';
+    const API_KEY = 'AIzaSyCwrKyohKfjfvz8NjPK3P5QIqDquhtfnqI';
+    const MODEL = 'gemini-2.5-flash';
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
     // DOM Elements

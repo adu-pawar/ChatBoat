@@ -1,4 +1,4 @@
-import CONFIG from './config.nev';
+import CONFIG from './config.env';
 
 document.addEventListener('DOMContentLoaded', () => {
     const API_KEY = CONFIG.GEMINI_API_KEY;
